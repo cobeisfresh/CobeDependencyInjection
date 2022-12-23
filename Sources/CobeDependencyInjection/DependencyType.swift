@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DependencyType {
+public enum DependencyType {
     case singleton
     case newInstance
     case automatic

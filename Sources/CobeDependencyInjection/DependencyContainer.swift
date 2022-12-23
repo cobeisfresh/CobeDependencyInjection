@@ -8,16 +8,16 @@
 import Foundation
 import Network
 
-final class DependencyContainer {
+public final class DependencyContainer {
 
     private static var cache: [String: Any] = [:]
     private static var factoryDict: [String: () -> Any] = [:]
 
-    static func registerSingleton<Service>(type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
+    public static func registerSingleton<Service>(type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
         register(dependencyType: .singleton, type: type, factory())
     }
 
-    static func register<Service>(dependencyType: DependencyType = .automatic,
+    public static func register<Service>(dependencyType: DependencyType = .automatic,
                                   type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
         factoryDict[String(describing: type.self)] = factory
         switch dependencyType {
@@ -28,7 +28,7 @@ final class DependencyContainer {
         }
     }
 
-    static func resolve<Service>(dependencyType: DependencyType, _ type: Service.Type) -> Service? {
+    public static func resolve<Service>(dependencyType: DependencyType, _ type: Service.Type) -> Service? {
         switch dependencyType {
         case .singleton:
             if let cachedService = cache[String(describing: type.self)] as? Service {

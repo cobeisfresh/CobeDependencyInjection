@@ -10,9 +10,9 @@ import Foundation
 @propertyWrapper
 struct Dependency<Service> {
 
-    var service: Service
+    public var service: Service
 
-    init(_ dependencyType: DependencyType = .automatic) {
+    public init(_ dependencyType: DependencyType = .automatic) {
         guard let service = DependencyContainer.resolve(dependencyType: dependencyType, Service.self) else {
             fatalError("No dependency of type \(String(describing: Service.self)) registered!")
         }
@@ -20,7 +20,7 @@ struct Dependency<Service> {
         self.service = service
     }
 
-    var wrappedValue: Service {
+    public var wrappedValue: Service {
         get { self.service }
         mutating set { service = newValue }
     }
