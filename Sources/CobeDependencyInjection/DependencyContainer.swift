@@ -14,14 +14,14 @@ public final class DependencyContainer {
     private static var factoryDict: [String: () -> Any] = [:]
 
     public static func registerSingleton<Service>(type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
-        register(dependencyType: .singleton, type: type, factory())
+        register(dependencyType: .singleInstance, type: type, factory())
     }
 
     public static func register<Service>(dependencyType: DependencyType = .automatic,
                                   type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
         factoryDict[String(describing: type.self)] = factory
         switch dependencyType {
-        case .singleton:
+        case .singleInstance:
             cache[String(describing: type.self)] = factory()
         case .newInstance, .automatic:
             break
@@ -30,7 +30,7 @@ public final class DependencyContainer {
 
     public static func resolve<Service>(dependencyType: DependencyType, _ type: Service.Type) -> Service? {
         switch dependencyType {
-        case .singleton:
+        case .singleInstance:
             if let cachedService = cache[String(describing: type.self)] as? Service {
                 return cachedService
             } else {

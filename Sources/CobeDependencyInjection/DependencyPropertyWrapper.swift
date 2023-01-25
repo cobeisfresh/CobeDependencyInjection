@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-struct Dependency<Service> {
+public struct Dependency<Service> {
 
     public var service: Service
 

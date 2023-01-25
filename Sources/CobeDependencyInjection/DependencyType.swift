@@ -8,7 +8,7 @@
 import Foundation
 
 public enum DependencyType {
-    case singleton
+    case singleInstance
     case newInstance
     case automatic
 }
